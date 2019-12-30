@@ -1,0 +1,14 @@
+
+服务器账号：172.16.13.46  root kaifa
+
+1 查看服务器内存 使用情况 df -h
+
+2 查看服务器版本 1 uname -a
+
+3查看服务器内核 cat /etc/redhat-release centos 类型
+
+
+
+
+
+

@@ -1,0 +1,20 @@
+server:
+  port: 10000
+ #${random.int[10000,10100]}
+spring:
+  application:
+    name: myeurka-server
+ 
+  #freemarker:   
+    #preferFileSystemAcces: fasle
+          
+eureka:
+  instance:
+    prefer-ip-address: true 
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://localhost:${server.port}/eureka/
+      

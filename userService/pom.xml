@@ -1,0 +1,133 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.mywork</groupId>
+    <artifactId>parentcould</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>user_service</artifactId>
+  <name>users_ervice</name>
+  <packaging>jar</packaging>
+  <properties>
+	   <!--properties节点中设置docker镜像的前缀“springboot”-->  
+		<spring-cloud.version>Greenwich.SR1</spring-cloud.version>
+		<docker.image.prefix>springio</docker.image.prefix>
+		<image.name>user_service:0.0.1</image.name>
+   </properties>
+   
+   
+  <dependencies>
+  		
+  		<!-- 项目公共依赖 -->
+		<dependency>
+			<groupId>com.mywork</groupId>
+			<artifactId>common_model</artifactId>
+		</dependency>
+  
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-starter-feign</artifactId>
+		    <version>1.4.7.RELEASE</version>
+		</dependency>
+				
+		
+<!-- 
+		<dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-client</artifactId>
+        </dependency>
+        
+		
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bus-amqp</artifactId>
+		</dependency>
+		  -->
+		
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency> 
+		<dependency>
+	      	<groupId>com.auth0</groupId>
+		    <artifactId>java-jwt</artifactId>
+		    <version>3.4.0</version>
+		</dependency>
+				
+		<dependency> 
+			<groupId> org.springframework.boot </groupId> 
+			<artifactId> spring-boot-devtools </artifactId> 
+			<optional>true</optional> 
+		</dependency> 
+		
+		<dependency>
+              <groupId>com.google.guava</groupId>
+              <artifactId>guava</artifactId>
+              <version>24.1-jre</version>
+        </dependency>
+        
+
+		<!--   MyBatis 通用 Mapper -->
+		 <dependency>
+			  <groupId>tk.mybatis</groupId>
+			  <artifactId>mapper-spring-boot-starter</artifactId>
+			  <version>1.1.4</version>
+		 </dependency>
+
+		
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper-spring-boot-starter</artifactId>
+			<version>1.2.5</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid-spring-boot-starter</artifactId>
+			<version>1.1.9</version>
+		</dependency>
+				
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>	
+    		<version>8.0.11</version> 
+		</dependency>
+	
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.1.11</version>
+		</dependency> 
+
+		
+  </dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+ 	
+ 	<build>
+ 		<plugins>
+ 			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>	
+			</plugin>		
+ 		</plugins>
+ 	</build>
+ 
+ 
+ 	
+</project>

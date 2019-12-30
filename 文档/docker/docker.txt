@@ -1,0 +1,78 @@
+#安装
+yum -y install docker-io
+#运行docker服务
+service docker start 或 systemctl start docker
+#再运行查看版本
+docker -v
+
+#编辑文件
+vim /etc/docker/daemon.json
+#刷新配置
+systemctl daemon-reload
+#添加自己的
+{
+  "registry-mirrors": ["https://d9cht21z.mirror.aliyuncs.com"]
+}
+#配置下载私有仓库
+docker run -d -p 5000:5000 --privileged=true -v /opt/registry:/tmp/registry docker.io/registry
+#打包镜像 tag
+docker tag mysql 127.0.0.1:5000/mysql
+docker push  127.0.0.1:5000/mysql
+#私有仓库明细
+http://114.55.92.111:5000/v2/_catalog
+
+//构建MySQL镜像
+
+1.搜索 docker search mysql
+
+2 下载使用最多的mysql  docker pull mysql
+
+3  mkdir –p /data/mysql/logs/ /data/mysql/conf/ /data/mysql/data/
+docker run --name mysqlPlus  -p 3307:3306
+    -v /data/mysql/data:/var/lib/mysql -v /data/mysql/conf:/etc/mysql/conf.d
+-e MYSQL_ROOT_PASSWORD=123456 -d mysql
+
+    --name 为mysql的实例设置别名。 -p 3307为对外暴露的端口。3306是内部端口 
+
+    -e MYSQL_ROOT_PASSWORD 设置mysql登录密码  -d 以守护进程运行（后台运行） 最后的mysql是镜像名称
+
+
+ ALTER user 'root'@'%' IDENTIFIED WITH mysql_native_password BY '123456';  
+
+
+4 进入mysql命令 docker exec -it dockermysql bash
+
+5 select user,host ,plugin from user;
+
+6 docker commit -m "my first mysql" -a "zxl" mysqlPlus first_mysql 将制定容器打成镜像
+
+7 docker -tag first_mysql zhouxilai/mysql 将制定first_mysql镜像打包成 注册用户名/镜像名（方便push）
+
+8 docker push  zhouxilai/mysql
+
+9 安装shipyard
+
+ curl -s https://raw.githubusercontent.com/shipyard/shipyard-project.com/master/site/themes/shipyard/static/deploy | bash -s
+
+//解决docker  容器日志文件 服务器磁盘占用过大
+
+10 查看 docker 占用 du -hs /var/lib/docker/ 
+
+11 df -h 查看服务器磁盘 使用
+
+12 指定eureka服务器地址参数 和 启动端口参数启动 java服务器 
+
+docker run -p 10002:10002 -d --net host --name user_service1.0 -e "EUREKA_INSTANCE_IP-ADDRESS=47.105.143.141" -e "SERVER_PORT=10002" 22614123fedb
+
+truncate -s 0
+
+二 . docker 安装消息中间件 rabbitmq
+
+1  docker pull rabbitmq:3.7.7-management
+
+2 docker run -d --name rabbitmq3.7.7 -p 5672:5672 -p 15672:15672 -v `pwd`/data:/var/lib/rabbitmq --hostname myRabbit -e RABBITMQ_DEFAULT_VHOST=my_vhost  -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=admin 
+//管理页面 http://47.105.143.141:15672/#/users
+安装 zookeeper
+docker run -d --name zookeeper -p 2181:2181 -t wurstmeister/zookeeper
+安装kfa
+1 docker run -d --name kafka -p 9092:9092 -e KAFKA_BROKER_ID=0 -e KAFKA_ZOOKEEPER_CONNECT=47.105.143.141:2181 -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://47.105.143.141:9092 -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 -t wurstmeister/kafka:2.12-2.1.0

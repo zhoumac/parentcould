@@ -1,0 +1,27 @@
+ 
+redis cluster集群
+
+1： 10.0.0.4:6379 10.0.0.
+
+2：	3  ， 8
+
+3 ，	5  ，7
+
+1 Manager 创建overlay 网络
+
+docker network create --driver overlay net1
+
+2 各主机 Pull 镜像
+docker pull zeffee/redis-cluster
+
+3 获取各容器的net1网络的ip地址
+docker network inspect net1
+
+提取 "IPv4Address": "10.0.0.8/24",
+
+4 创建 redis-cluster 集群  随便进入一个容器
+
+ docker exec -ti 772 /bin/bash
+
+5 测试可用
+ redis-cli -c -h  10.0.0.4 -p 6379

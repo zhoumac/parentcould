@@ -1,0 +1,82 @@
+
+2.1、所用版本如下
+
+centos 7
+
+172.16.13.46 
+
+172.16.13.47
+
+172.16.13.48
+2.2、安装docker
+
+每台机器上都需要安装Docker
+
+yum search dockerym
+yum install -y docker
+systemctl start docker
+
+2.3、加入开机自启
+
+systemctl enable docker
+
+2.4、更改docker的镜像源
+
+安装好之后，更改docker的镜像源,修改或新增 /etc/docker/daemon.json
+
+vi /etc/docker/daemon.json
+
+{
+"registry-mirrors": ["http://hub-mirror.c.163.com"]
+}
+或
+{ 
+"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"] 
+重启 systemctl restart docker.service
+
+2.5、修改主机名
+
+然后分别修改两台机器的主机名，更改成swarm01,swarm02
+
+hostnamectl set-hostname swarm01
+
+2.6、关闭SELinux
+[root@swaram01 ~]# getenforce
+Disabled
+[root@swaram01 ~]# /usr/sbin/sestatus -v
+SELinux status:                 disabled
+2.7、编辑hosts文件
+
+vi /etc/hosts
+192.168.182.110 swarm01
+192.168.182.111 swarm02
+
+2.8、关闭防火墙
+systemctl stop firewalld.service #停止firewall
+systemctl disable firewalld.service #禁止firewall开机启动
+2.9、修改docker监听端口
+
+Swarm是通过监听2375端口进行通信的，所以在使用Swarm进行集群管理之前，需要设置一下2375端口的监听。所有主机节点docker开启2375监听，docker版本不同，配置方式不一样
+
+3.0、重启docker服务
+
+systemctl daemon-reload    ##使配置文件生效
+systemctl restart docker
+
+
+四、Swarm安装和集群创建
+
+3.1、Swarm镜像下载
+
+docker pull swarm
+
+3.2、初始化Swarm 
+
+docker swarm init --advertise-addr  192.168.182.110
+
+ docker swarm join \
+    --token SWMTKN-1-3fmrg3gvdlee82igro5vbirtvrk0mxjokg0gzfy2grk7l4ujjx-0j7eebfdrj1jxo3l4djpby052 
+    172.16.13.46:2377
+
+https://my.oschina.net/u/1445585/blog/1840225
+

@@ -1,0 +1,35 @@
+当我们需要删除暂存区或分支上的文件, 同时工作区也不需要这个文件了, 可以使用
+
+1 git rm file_path
+2 git commit -m 'delete somefile'
+3 git push
+
+当我们需要删除暂存区或分支上的文件, 但本地又需要使用, 只是不希望这个文件被版本控制, 可以使用
+
+git rm --cached file_path
+git commit -m 'delete remote somefile'
+git push
+
+
+git stash
+git pull
+git stash pop
+
+
+退出方法: 如果是输出状态,首先按Esc键退出输入状态,然后按Shift+“;”,再输入q!或wq!(不保存改动,wq!是保存文件的写入修改)退出
+
+二 git常用命令
+
+1 创建并切换本地分支 
+
+git checkout -b dev 
+
+2 推送分支到远程仓库
+
+git push origin dev:dev
+
+3  指定分支克隆	
+
+git clone -b dev +url 
+
+4 合并指定分支到当前分支 git merge master

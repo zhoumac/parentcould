@@ -1,0 +1,16 @@
+server:
+  port: 8761
+ #${random.int[10000,10100]}
+spring:
+  application:
+    name: myeurka-server        
+eureka:  
+  instance:
+    prefer-ip-address: true 
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${EUREKA_SERVER_ADDRESS}:8761/eureka/
+      

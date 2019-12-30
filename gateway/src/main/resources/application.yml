@@ -1,0 +1,1 @@
+server:  port: 8888 #${random.int[10000,10100]}spring:  application:    name: user-service       eureka:  client:     serviceUrl:      defaultZone: http://localhost:10000/eureka/           

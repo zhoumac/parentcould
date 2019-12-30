@@ -1,0 +1,83 @@
+version: '3'
+services:
+  eureka1:
+    image: my/eureka:0.0.1
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2048M
+        reservations:
+          cpus: '0.2'
+          memory: 1024M 
+    networks:
+      springcloud-overlay:
+        aliases:
+          - eureka
+    ports:
+      - "8761:8761"
+    volumes:
+      - /tmp:/tmp  
+    environment:
+      - spring.profiles.active=prod
+      - ADDITIONAL_EUREKA_SERVER_LIST=http://eureka2:8761/eureka/,http://eureka3:8761/eureka/
+      
+     
+    
+  eureka2:
+    image: my/eureka:0.0.1
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2048M
+        reservations:
+          cpus: '0.2'
+          memory: 1024M 
+    networks:
+      springcloud-overlay:
+        aliases:
+          - eureka
+    ports:
+      - "8762:8761"
+    volumes:
+      - /tmp:/tmp  
+    environment:
+      - spring.profiles.active=prod  
+      - ADDITIONAL_EUREKA_SERVER_LIST=http://eureka1:8761/eureka/,http://eureka3:8761/eureka/
+    
+  eureka3:
+    image: my/eureka:0.0.1
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2048M
+        reservations:
+          cpus: '0.2'
+          memory: 1024M 
+    networks:
+      springcloud-overlay:
+        aliases:
+          - eureka
+    ports:
+      - "8763:8761"
+    volumes:
+      - /tmp:/tmp  
+    environment:
+      - spring.profiles.active=prod
+      - ADDITIONAL_EUREKA_SERVER_LIST=http://eureka2:8761/eureka/,http://eureka3:8761/eureka/
+    
+networks:
+  springcloud-overlay:
+    external:
+      name: springcloud-overlay

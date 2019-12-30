@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.mywork</groupId>
+    <artifactId>parentcould</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>myEureka</artifactId>
+  <name>myEureka</name>
+  <description>my Eureka</description>
+  <packaging>jar</packaging>
+  
+  <properties>
+	   <!--properties节点中设置docker镜像的前缀“springboot”-->  
+		<spring-cloud.version>Greenwich.SR1</spring-cloud.version>
+		<docker.image.prefix>springio</docker.image.prefix>
+		<image.name>my/eureka:0.0.1</image.name>
+	</properties>
+  
+  <dependencies>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+		</dependency>
+		
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+
+	<build>
+ 		<plugins>
+ 			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>	
+			</plugin>		
+ 		</plugins>
+ 	</build>
+
+</project>

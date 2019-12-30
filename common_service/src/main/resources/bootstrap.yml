@@ -1,0 +1,1 @@
+server:  port: 8081 #${random.int[10000,10100]}spring:  application:    name: common-service  profiles:    active: dev  

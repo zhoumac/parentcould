@@ -1,0 +1,81 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.mywork</groupId>
+    <artifactId>parentcould</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>stream_service</artifactId>
+  <packaging>jar</packaging>
+  <properties>
+	   <!--properties节点中设置docker镜像的前缀“springboot”-->  
+		<spring-cloud.version>Greenwich.SR1</spring-cloud.version>
+		<docker.image.prefix>springio</docker.image.prefix>
+		<image.name>stream_service:0.0.1</image.name>
+   </properties>
+   
+   <dependencies>
+   		
+  		<!-- 项目公共依赖 -->
+		 <dependency>
+			<groupId>com.mywork</groupId>
+			<artifactId>common_model</artifactId>
+		</dependency> 
+   		
+   		 <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
+        </dependency>
+   		<dependency>
+            <groupId>com.netflix.hystrix</groupId>
+            <artifactId>hystrix-javanica</artifactId>
+            
+        </dependency> 
+   		<dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-stream-test-support</artifactId>
+		    <scope>test</scope>
+		</dependency>	
+   		 <dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		
+      
+   		<!-- <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-server</artifactId>
+        </dependency>
+        
+        <dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-starter-bus-kafka</artifactId>
+		</dependency>
+        
+         <dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bus-amqp</artifactId>
+		</dependency>   -->
+  </dependencies>
+   
+   <dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
+	<build>
+ 		<plugins>
+ 			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>	
+			</plugin>		
+ 		</plugins>
+ 	</build>
+</project>
