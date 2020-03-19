@@ -1,0 +1,19 @@
+1. 登录阿里云Docker Registry
+$ sudo docker login --username=2902348036@qq.com registry.cn-shanghai.aliyuncs.com
+用于登录的用户名为阿里云账号全名，密码为开通服务时设置的密码。
+
+您可以在访问凭证页面修改凭证密码。
+
+2. 从Registry中拉取镜像
+ docker pull registry.cn-shanghai.aliyuncs.com/zhou_repository/net_service:0.0.1-SNAPSHOT
+3. 将镜像推送到Registry
+  docker login --username=2902348036@qq.com registry.cn-shanghai.aliyuncs.com
+  docker tag [ImageId] registry.cn-shanghai.aliyuncs.com/zhou_repository/net_service:0.0.1-SNAPSHOT
+  docker push registry.cn-shanghai.aliyuncs.com/zhou_repository/net_service:0.0.1-SNAPSHOT
+
+jenkins
+
+docker run -d --name JenkinsContainer -p 8080:8080 -p 50000:50000
+ -v /var/run/docker.sock:/var/run/docker.sock
+ -v $(which docker):/bin/docker
+ -v /var/jenkins_home:/var/jenkins_home  e54fbc2a5085

@@ -1,7 +1,13 @@
 #安装
 yum -y install docker-io
+#脚本安装
+curl -fsSL https://get.docker.com -o get-docker.sh
+
+#配置 远程访问2375
+ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:2375
 #运行docker服务
-service docker start 或 systemctl start docker
+
+
 #再运行查看版本
 docker -v
 
@@ -9,10 +15,16 @@ docker -v
 vim /etc/docker/daemon.json
 #刷新配置
 systemctl daemon-reload
-#添加自己的
+#添
+加自己的
 {
   "registry-mirrors": ["https://d9cht21z.mirror.aliyuncs.com"]
 }
+netstat -lntp | grep dockerd
+systemctl daemon-reload &&  systemctl restart docker
+//登录自己私有仓库
+docker login --username=2902348036@qq.com registry.cn-shanghai.aliyuncs.com
+
 #配置下载私有仓库
 docker run -d -p 5000:5000 --privileged=true -v /opt/registry:/tmp/registry docker.io/registry
 #打包镜像 tag
